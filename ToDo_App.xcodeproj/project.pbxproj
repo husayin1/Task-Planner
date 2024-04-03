@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56269B702BBD675D00BBACAC /* DoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56269B6F2BBD675D00BBACAC /* DoneViewController.m */; };
+		56269B742BBD712600BBACAC /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56269B732BBD712600BBACAC /* Helper.m */; };
 		56C3A8512BBBFF1200D25668 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8502BBBFF1200D25668 /* AppDelegate.m */; };
 		56C3A8542BBBFF1200D25668 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8532BBBFF1200D25668 /* SceneDelegate.m */; };
 		56C3A8572BBBFF1200D25668 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8562BBBFF1200D25668 /* ViewController.m */; };
@@ -17,6 +19,10 @@
 		56C3A86C2BBBFF1500D25668 /* ToDo_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A86B2BBBFF1500D25668 /* ToDo_AppTests.m */; };
 		56C3A8762BBBFF1500D25668 /* ToDo_AppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8752BBBFF1500D25668 /* ToDo_AppUITests.m */; };
 		56C3A8782BBBFF1600D25668 /* ToDo_AppUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8772BBBFF1600D25668 /* ToDo_AppUITestsLaunchTests.m */; };
+		56C3A8862BBC02C200D25668 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8852BBC02C200D25668 /* DetailsViewController.m */; };
+		56C3A8892BBC02FA00D25668 /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A8882BBC02FA00D25668 /* TaskViewController.m */; };
+		56C3A88C2BBC126600D25668 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C3A88B2BBC126600D25668 /* Task.m */; };
+		56D6416C2BBC35EE00EF7182 /* InProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56269B6E2BBD675D00BBACAC /* DoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneViewController.h; sourceTree = "<group>"; };
+		56269B6F2BBD675D00BBACAC /* DoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoneViewController.m; sourceTree = "<group>"; };
+		56269B722BBD712600BBACAC /* Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		56269B732BBD712600BBACAC /* Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		56C3A84C2BBBFF1200D25668 /* ToDo_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C3A84F2BBBFF1200D25668 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		56C3A8502BBBFF1200D25668 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +64,15 @@
 		56C3A8712BBBFF1500D25668 /* ToDo_AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDo_AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C3A8752BBBFF1500D25668 /* ToDo_AppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDo_AppUITests.m; sourceTree = "<group>"; };
 		56C3A8772BBBFF1600D25668 /* ToDo_AppUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDo_AppUITestsLaunchTests.m; sourceTree = "<group>"; };
+		56C3A8842BBC02C200D25668 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		56C3A8852BBC02C200D25668 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		56C3A8872BBC02FA00D25668 /* TaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
+		56C3A8882BBC02FA00D25668 /* TaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
+		56C3A88A2BBC126600D25668 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		56C3A88B2BBC126600D25668 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		56C3A88E2BBC1C8A00D25668 /* InsertionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertionDelegate.h; sourceTree = "<group>"; };
+		56D6416A2BBC35EE00EF7182 /* InProcessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProcessViewController.h; sourceTree = "<group>"; };
+		56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InProcessViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +134,19 @@
 				56C3A85D2BBBFF1500D25668 /* LaunchScreen.storyboard */,
 				56C3A8602BBBFF1500D25668 /* Info.plist */,
 				56C3A8612BBBFF1500D25668 /* main.m */,
+				56C3A8842BBC02C200D25668 /* DetailsViewController.h */,
+				56C3A8852BBC02C200D25668 /* DetailsViewController.m */,
+				56C3A8872BBC02FA00D25668 /* TaskViewController.h */,
+				56C3A8882BBC02FA00D25668 /* TaskViewController.m */,
+				56C3A88A2BBC126600D25668 /* Task.h */,
+				56C3A88B2BBC126600D25668 /* Task.m */,
+				56C3A88E2BBC1C8A00D25668 /* InsertionDelegate.h */,
+				56D6416A2BBC35EE00EF7182 /* InProcessViewController.h */,
+				56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */,
+				56269B6E2BBD675D00BBACAC /* DoneViewController.h */,
+				56269B6F2BBD675D00BBACAC /* DoneViewController.m */,
+				56269B722BBD712600BBACAC /* Helper.h */,
+				56269B732BBD712600BBACAC /* Helper.m */,
 			);
 			path = ToDo_App;
 			sourceTree = "<group>";
@@ -266,10 +298,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56269B702BBD675D00BBACAC /* DoneViewController.m in Sources */,
+				56C3A88C2BBC126600D25668 /* Task.m in Sources */,
+				56D6416C2BBC35EE00EF7182 /* InProcessViewController.m in Sources */,
 				56C3A8572BBBFF1200D25668 /* ViewController.m in Sources */,
+				56C3A8892BBC02FA00D25668 /* TaskViewController.m in Sources */,
+				56C3A8862BBC02C200D25668 /* DetailsViewController.m in Sources */,
 				56C3A8512BBBFF1200D25668 /* AppDelegate.m in Sources */,
 				56C3A8622BBBFF1500D25668 /* main.m in Sources */,
 				56C3A8542BBBFF1200D25668 /* SceneDelegate.m in Sources */,
+				56269B742BBD712600BBACAC /* Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +487,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,6 +514,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
