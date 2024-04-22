@@ -24,14 +24,14 @@
 //life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
     _tasksTable.delegate = self;
     _tasksTable.dataSource = self;
-    _helper = [Helper getInstance];
+    
     _searchingBar.delegate = self;
     _searchingBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _isSearching = NO;
+    
+    _helper = [Helper getInstance];
     _searchList = [NSMutableArray new];
 }
 //life cycle
@@ -42,6 +42,12 @@
     _todoArr = [_helper readArrayOfTasksFromUserDefaults:@"todolist"];
     _tempTodo = [self filterToDoArray:_todoArr];
     [_tasksTable reloadData];
+    if (self->_tempTodo.count == 0) {
+        self.tasksTable.hidden = YES;
+    }else{
+        self.tasksTable.hidden = NO;
+
+    }
 }
 //button
 - (IBAction)addNewTask:(id)sender {
@@ -53,7 +59,7 @@
     _isSearching = YES;
     [_searchList removeAllObjects];
     for(Task * task in _tempTodo){
-        if([task.taskName containsString:[searchText lowercaseString]]){
+        if([[task.taskName lowercaseString] containsString:[searchText lowercaseString] ]){
             [_searchList addObject:task];
         }
         [_tasksTable reloadData];
@@ -147,10 +153,9 @@
             self->_tempTodo = [self filterToDoArray:self->_todoArr];
             [self->_helper writeArrayOfTasksToUserDefaults:@"todolist" withArray: self->_todoArr];
             [self->_tasksTable reloadData];
-            
-            
-//            NSData * archiveData = [NSKeyedArchiver archivedDataWithRootObject:self->_todoArr requiringSecureCoding:YES error:nil];
-//            [self->_userDefaults setObject:archiveData forKey:@"todolist"];
+            if (self->_tempTodo.count == 0) {
+                self.tasksTable.hidden = YES;
+            }
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:delete];

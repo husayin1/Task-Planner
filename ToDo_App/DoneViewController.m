@@ -110,6 +110,9 @@
 //            [self->_progressTable reloadData];
             [self->_helper writeArrayOfTasksToUserDefaults:@"todolist" withArray:self->_allTasks];
             [self loadData];
+            if (self->_doneTasks.count == 0) {
+                self.doneTable.hidden = YES;
+            }
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:delete];
@@ -194,8 +197,6 @@
 
 
 -(void) loadData{
-//    _savedData = [_userDefault objectForKey:@"todolist"];
-//    _allTasks = (NSArray*) [NSKeyedUnarchiver unarchivedArrayOfObjectsOfClass:[Task class] fromData:_savedData error:nil];
     _allTasks = [_helper readArrayOfTasksFromUserDefaults:@"todolist"];
     _doneTasks = [self filterToDoneArray:_allTasks];
     if(_isSections){
@@ -209,6 +210,12 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self loadData];
+    if (self->_doneTasks.count == 0) {
+        self.doneTable.hidden = YES;
+    }else{
+        self.doneTable.hidden = NO;
+
+    }
 }
 
 

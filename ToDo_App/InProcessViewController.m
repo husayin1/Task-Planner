@@ -12,13 +12,11 @@
 @interface InProcessViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *progressTable;
 
-//@property NSUserDefaults *userDefault;
 @property NSArray *allTasks;
 @property NSArray<Task*> *inProcessTasks;
 @property NSArray *high;
 @property NSArray *med;
 @property NSArray *low;
-//@property NSData *savedData;
 @property Helper *helper;
 @property bool isSections ;
 @property NSArray<NSArray<Task*>*> *temp;
@@ -33,11 +31,19 @@
     _filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterClicked)];
     [self.navigationItem setRightBarButtonItem:_filterButton];
     
-//    _userDefault = [NSUserDefaults standardUserDefaults];
     _helper = [Helper getInstance];
     _progressTable.delegate=self;
     _progressTable.dataSource=self;
     _isSections = NO;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [self loadData];
+    if (self->_inProcessTasks.count == 0) {
+        self.progressTable.hidden = YES;
+    }else{
+        self.progressTable.hidden = NO;
+
+    }
 }
 
 //filtering the array to be in process
@@ -110,6 +116,9 @@
             [self->_helper writeArrayOfTasksToUserDefaults:@"todolist" withArray:self->_allTasks];
             [self->_progressTable reloadData];
             [self loadData];
+            if (self->_inProcessTasks.count == 0) {
+                self.progressTable.hidden = YES;
+            }
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:delete];
@@ -194,8 +203,6 @@
 
 
 -(void) loadData{
-//    _savedData = [_userDefault objectForKey:@"todolist"];
-//    _allTasks = (NSArray*) [NSKeyedUnarchiver unarchivedArrayOfObjectsOfClass:[Task class] fromData:_savedData error:nil];
     _allTasks = [_helper readArrayOfTasksFromUserDefaults:@"todolist"];
     _inProcessTasks = [self filterInProcessArray:_allTasks];
     if(_isSections){
@@ -207,8 +214,6 @@
     }
     [_progressTable reloadData];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [self loadData];
-}
+
 
 @end

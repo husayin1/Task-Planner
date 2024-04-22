@@ -22,9 +22,6 @@ static NSUserDefaults *userDefaults =nil;
 }
 //put in UD
 -(void) writeArrayOfTasksToUserDefaults:(NSString *)key withArray:(NSArray *)newArr{
-    
-//            NSData * archiveData = [NSKeyedArchiver archivedDataWithRootObject:self->_todoArr requiringSecureCoding:YES error:nil];
-//            [self->_userDefaults setObject:archiveData forKey:@"todolist"];
     NSData* archiveData = [NSKeyedArchiver archivedDataWithRootObject:newArr requiringSecureCoding:YES error:nil];
     [userDefaults setObject:archiveData forKey:key];
 }
