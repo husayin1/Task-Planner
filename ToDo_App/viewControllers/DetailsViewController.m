@@ -59,13 +59,6 @@
     }
 }
 
--(void) editableFields:(bool) editable{
-    [_taskNameTF setEnabled:editable];
-    [_taskDescriptionTF setEnabled:editable];
-    [_taskPrioritySC setEnabled:editable];
-    [_taskStatusSC setEnabled:editable];
-    [_taskDate setEnabled:editable];
-}
 - (IBAction)editTask:(id)sender {
     _isEditable=!_isEditable;
     if(_isEditable){
@@ -117,6 +110,14 @@
     _taskPrioritySC.selectedSegmentIndex = scrnTask.prioritize;
     _taskStatusSC.selectedSegmentIndex = scrnTask.status;
     _taskDate.date = scrnTask.taskDate;
+}
+
+-(void) editableFields:(bool) editable{
+    [_taskNameTF setEnabled:editable];
+    [_taskDescriptionTF setEnabled:editable];
+    [_taskPrioritySC setEnabled:editable];
+    [_taskStatusSC setEnabled:editable];
+    [_taskDate setEnabled:editable];
 }
 
 

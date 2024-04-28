@@ -10,6 +10,7 @@
 #import "Task.h"
 #import "DetailsViewController.h"
 #import "Helper.h"
+#import <UserNotifications/UserNotifications.h>
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tasksTable;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchingBar;
@@ -33,6 +34,7 @@
     
     _helper = [Helper getInstance];
     _searchList = [NSMutableArray new];
+    
 }
 //life cycle
 -(void)viewWillAppear:(BOOL)animated{

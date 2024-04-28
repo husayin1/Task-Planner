@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 
+#import <UserNotifications/UserNotifications.h>
 @interface AppDelegate ()
 
 @end
@@ -16,9 +17,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL success, NSError * _Nullable error) {
+           if (success) {
+               NSLog(@"Permission granted");
+           } else if (error != nil) {
+               NSLog(@"permission denied");
+           }
+       }];
     return YES;
 }
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    completionHandler(UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeSound);
+}
 
 #pragma mark - UISceneSession lifecycle
 

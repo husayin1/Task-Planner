@@ -7,8 +7,9 @@
 
 #import "TaskViewController.h"
 #import "Task.h"
-#import <UserNotifications/UserNotifications.h>
 #import "Helper.h"
+
+#import <UserNotifications/UserNotifications.h>
 @interface TaskViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTF;
 @property (weak, nonatomic) IBOutlet UITextField *taskDescriptionTF;
@@ -34,9 +35,13 @@
     _alertTask = [Task new];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [_statusSC removeSegmentAtIndex:2 animated:YES];
+    [_statusSC removeSegmentAtIndex:1 animated:YES];
+}
+
 - (IBAction)forNotifc:(UIDatePicker *)sender {
     _dateOfNotif = _datePicker.date;
-    NSLog(@"@%",_datePicker);
 }
 
 
@@ -58,10 +63,6 @@
            [temp addObject: t];
            _todoList = [NSArray arrayWithArray:temp];
            [_helper writeArrayOfTasksToUserDefaults:key withArray:self->_todoList];
-           printf("size of array todo is %ld",_todoList.count);
-           printf("Add Task Controller : \n");
-           printf("Inserted Task name is %s\n",[t.taskName UTF8String]);
-           printf("Inserted Task Description is %s\n",[t.taskDescription UTF8String]);
            [self.navigationController popViewControllerAnimated:YES];
        }else{
            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Fields" message:@"Please Fill Task Name And Description" preferredStyle:UIAlertControllerStyleAlert];
@@ -73,52 +74,35 @@
        }
     _alertTask = t;
     if(_isOpen){
-        [self notifyClicked];
+        [self scheduleTest];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [_statusSC removeSegmentAtIndex:2 animated:YES];
-    [_statusSC removeSegmentAtIndex:1 animated:YES];
-}
-
-
--(void) notifyClicked{
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL success, NSError * _Nullable error) {
-           if (success) {
-               [self scheduleTest];
-           } else if (error != nil) {
-               NSLog(@"Error occurred");
-           }
-       }];
-   }
-
-   - (void)scheduleTest {
-       UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-       content.title = _alertTask.taskName;
-       content.sound = [UNNotificationSound defaultSound];
-       content.body = _alertTask.taskDescription;
-       
-       NSDate *targetDate = [_dateOfNotif dateByAddingTimeInterval:10];
-       NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:targetDate];
-       UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:NO];
-
-       UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"some_long_id" content:content trigger:trigger];
-       [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-           if (error != nil) {
-               NSLog(@"Something went wrong");
-           }
-       }];   }
 - (IBAction)alertSwitch:(id)sender {
     if([sender isOn]){
-        printf("Alert is On\n");
         _isOpen = YES;
-        [self notifyClicked];
     }else{
         _isOpen = NO;
-        printf("Alert is Off\n");
     }
 }
 
+- (void)scheduleTest {
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.title = _alertTask.taskName;
+    content.sound = [UNNotificationSound defaultSound];
+    content.body = _alertTask.taskDescription;
+    
+    NSDate *targetDate = [_dateOfNotif dateByAddingTimeInterval:10];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:targetDate];
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:NO];
+
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"todo_notification_id" content:content trigger:trigger];
+    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Something went wrong");
+        }
+    }];
+    
+}
 
 @end

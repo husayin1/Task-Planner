@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InsertionDelegate.h"
 @interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @end
 

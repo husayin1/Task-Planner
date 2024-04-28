@@ -1,31 +1,29 @@
 //
-//  DoneViewController.m
+//  InProcessViewController.m
 //  ToDo_App
 //
-//  Created by husayn on 03/04/2024.
+//  Created by husayn on 02/04/2024.
 //
 
-#import "DoneViewController.h"
+#import "InProcessViewController.h"
 #import "Task.h"
-#import "DetailsViewController.h"
 #import "Helper.h"
-@interface DoneViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *doneTable;
+#import "DetailsViewController.h"
+@interface InProcessViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *progressTable;
 
-//@property NSUserDefaults *userDefault;
 @property NSArray *allTasks;
-@property NSArray<Task*> *doneTasks;
+@property NSArray<Task*> *inProcessTasks;
 @property NSArray *high;
 @property NSArray *med;
 @property NSArray *low;
-//@property NSData *savedData;
 @property Helper *helper;
 @property bool isSections ;
 @property NSArray<NSArray<Task*>*> *temp;
 @property UIBarButtonItem *filterButton;
 @end
 
-@implementation DoneViewController
+@implementation InProcessViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,36 +31,22 @@
     _filterButton = [[UIBarButtonItem alloc]initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filterClicked)];
     [self.navigationItem setRightBarButtonItem:_filterButton];
     
-//    _userDefault = [NSUserDefaults standardUserDefaults];
     _helper = [Helper getInstance];
-    _doneTable.delegate=self;
-    _doneTable.dataSource=self;
+    _progressTable.delegate=self;
+    _progressTable.dataSource=self;
     _isSections = NO;
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [self loadData];
+    if (self->_inProcessTasks.count == 0) {
+        self.progressTable.hidden = YES;
+    }else{
+        self.progressTable.hidden = NO;
 
-//filtering the array to be done
--(NSArray<Task*>*)filterToDoneArray:(NSArray<Task*>*)done{
-    NSMutableArray *arr = [NSMutableArray new];
-    for(Task* task in done){
-        if(task.status == 2){
-            [arr addObject:task];
-        }
     }
-    return arr;
-}
-//filtering to 3 arrays
--(NSArray*) filterToSectionArray:(NSArray*) todosAr :(int) prio{
-    NSMutableArray *arraySec = [NSMutableArray new];
-    
-    for(Task *task in todosAr){
-        if(task.prioritize == prio){
-            [arraySec addObject:task];
-        }
-    }
-    return arraySec;
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell *cell = [_doneTable dequeueReusableCellWithIdentifier:@"DoneCell" forIndexPath: indexPath];
+    UITableViewCell *cell = [_progressTable dequeueReusableCellWithIdentifier:@"ProcessCell" forIndexPath: indexPath];
     UIImageView *taskImg = [cell viewWithTag:0];
     UILabel *taskNameLabel = [cell viewWithTag:1];
     UILabel *taskDescriptionLabel = [cell viewWithTag:2];
@@ -74,9 +58,9 @@
         desc = _temp[indexPath.section][indexPath.row].taskDescription;
         cellPrio = _temp[indexPath.section][indexPath.row].prioritize;
     }else{
-        title = _doneTasks[indexPath.row].taskName;
-        desc=_doneTasks[indexPath.row].taskDescription;
-        cellPrio=_doneTasks[indexPath.row].prioritize;
+        title = _inProcessTasks[indexPath.row].taskName;
+        desc=_inProcessTasks[indexPath.row].taskDescription;
+        cellPrio=_inProcessTasks[indexPath.row].prioritize;
     }
     
     taskNameLabel.text = title;
@@ -102,16 +86,16 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Are you sure you want to delete this task" preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self->_allTasks];
-            [arr removeObjectAtIndex:[self->_allTasks indexOfObject:[self->_doneTasks objectAtIndex:indexPath.row]]];
+            [arr removeObjectAtIndex:[self->_allTasks indexOfObject:[self->_inProcessTasks objectAtIndex:indexPath.row]]];
             self->_allTasks = [NSArray arrayWithArray:arr];
-            self->_doneTasks = [self filterToDoneArray:self->_allTasks];
+            self->_inProcessTasks = [self filterInProcessArray:self->_allTasks];
 //            NSData * archiveData = [NSKeyedArchiver archivedDataWithRootObject:self->_allTasks requiringSecureCoding:YES error:nil];
 //            [self->_userDefault setObject:archiveData forKey:@"todolist"];
-//            [self->_progressTable reloadData];
             [self->_helper writeArrayOfTasksToUserDefaults:@"todolist" withArray:self->_allTasks];
+            [self->_progressTable reloadData];
             [self loadData];
-            if (self->_doneTasks.count == 0) {
-                self.doneTable.hidden = YES;
+            if (self->_inProcessTasks.count == 0) {
+                self.progressTable.hidden = YES;
             }
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
@@ -131,10 +115,10 @@
     if(_isSections){
         te = _temp[indexPath.section][indexPath.row];
     }else{
-        te = _doneTasks[indexPath.row];
+        te = _inProcessTasks[indexPath.row];
     }
     [detailsViewController setUpScreen:te :(int)[_allTasks indexOfObject:te]];
-    [detailsViewController setScreenIndex:2];
+    [detailsViewController setScreenIndex:1];
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -178,7 +162,7 @@
                 break;
         }
     }else{
-        count = _doneTasks.count;
+        count = _inProcessTasks.count;
     }
     return count;
 }
@@ -198,26 +182,38 @@
 
 -(void) loadData{
     _allTasks = [_helper readArrayOfTasksFromUserDefaults:@"todolist"];
-    _doneTasks = [self filterToDoneArray:_allTasks];
+    _inProcessTasks = [self filterInProcessArray:_allTasks];
     if(_isSections){
-        _high = [self filterToSectionArray:_doneTasks:0];
-        _med = [self filterToSectionArray:_doneTasks:1];
-        _low = [self filterToSectionArray:_doneTasks:2];
+        _high = [self filterToSectionArray:_inProcessTasks:0];
+        _med = [self filterToSectionArray:_inProcessTasks:1];
+        _low = [self filterToSectionArray:_inProcessTasks:2];
         
         _temp = @[_high,_med,_low];
     }
-    [_doneTable reloadData];
+    [_progressTable reloadData];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [self loadData];
-    if (self->_doneTasks.count == 0) {
-        self.doneTable.hidden = YES;
-    }else{
-        self.doneTable.hidden = NO;
 
+
+//filtering the array to be in process
+-(NSArray<Task*>*)filterInProcessArray:(NSArray<Task*>*)process{
+    NSMutableArray *arr = [NSMutableArray new];
+    for(Task* task in process){
+        if(task.status == 1){
+            [arr addObject:task];
+        }
     }
+    return arr;
 }
-
-
+//filtering to 3 arrays
+-(NSArray*) filterToSectionArray:(NSArray*) todosAr :(int) prio{
+    NSMutableArray *arraySec = [NSMutableArray new];
+    
+    for(Task *task in todosAr){
+        if(task.prioritize == prio){
+            [arraySec addObject:task];
+        }
+    }
+    return arraySec;
+}
 
 @end

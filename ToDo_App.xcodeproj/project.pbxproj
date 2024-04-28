@@ -70,7 +70,6 @@
 		56C3A8882BBC02FA00D25668 /* TaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
 		56C3A88A2BBC126600D25668 /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		56C3A88B2BBC126600D25668 /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
-		56C3A88E2BBC1C8A00D25668 /* InsertionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertionDelegate.h; sourceTree = "<group>"; };
 		56D6416A2BBC35EE00EF7182 /* InProcessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProcessViewController.h; sourceTree = "<group>"; };
 		56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InProcessViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +99,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		562E62F52BDC1DE300B89C22 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				56C3A84F2BBBFF1200D25668 /* AppDelegate.h */,
+				56C3A8502BBBFF1200D25668 /* AppDelegate.m */,
+				56C3A8522BBBFF1200D25668 /* SceneDelegate.h */,
+				56C3A8532BBBFF1200D25668 /* SceneDelegate.m */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		562E62F62BDC1E0200B89C22 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				56C3A8872BBC02FA00D25668 /* TaskViewController.h */,
+				56C3A8882BBC02FA00D25668 /* TaskViewController.m */,
+				56C3A8552BBBFF1200D25668 /* ViewController.h */,
+				56C3A8562BBBFF1200D25668 /* ViewController.m */,
+				56C3A8842BBC02C200D25668 /* DetailsViewController.h */,
+				56C3A8852BBC02C200D25668 /* DetailsViewController.m */,
+				56D6416A2BBC35EE00EF7182 /* InProcessViewController.h */,
+				56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */,
+				56269B6E2BBD675D00BBACAC /* DoneViewController.h */,
+				56269B6F2BBD675D00BBACAC /* DoneViewController.m */,
+			);
+			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		562E62F72BDC1E4100B89C22 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				56C3A88A2BBC126600D25668 /* Task.h */,
+				56C3A88B2BBC126600D25668 /* Task.m */,
+				56269B722BBD712600BBACAC /* Helper.h */,
+				56269B732BBD712600BBACAC /* Helper.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		56C3A8432BBBFF1200D25668 = {
 			isa = PBXGroup;
 			children = (
@@ -123,30 +161,14 @@
 		56C3A84E2BBBFF1200D25668 /* ToDo_App */ = {
 			isa = PBXGroup;
 			children = (
-				56C3A84F2BBBFF1200D25668 /* AppDelegate.h */,
-				56C3A8502BBBFF1200D25668 /* AppDelegate.m */,
-				56C3A8522BBBFF1200D25668 /* SceneDelegate.h */,
-				56C3A8532BBBFF1200D25668 /* SceneDelegate.m */,
-				56C3A8552BBBFF1200D25668 /* ViewController.h */,
-				56C3A8562BBBFF1200D25668 /* ViewController.m */,
-				56C3A8582BBBFF1200D25668 /* Main.storyboard */,
-				56C3A85B2BBBFF1500D25668 /* Assets.xcassets */,
-				56C3A85D2BBBFF1500D25668 /* LaunchScreen.storyboard */,
-				56C3A8602BBBFF1500D25668 /* Info.plist */,
+				562E62F52BDC1DE300B89C22 /* core */,
+				562E62F62BDC1E0200B89C22 /* viewControllers */,
+				562E62F72BDC1E4100B89C22 /* model */,
 				56C3A8612BBBFF1500D25668 /* main.m */,
-				56C3A8842BBC02C200D25668 /* DetailsViewController.h */,
-				56C3A8852BBC02C200D25668 /* DetailsViewController.m */,
-				56C3A8872BBC02FA00D25668 /* TaskViewController.h */,
-				56C3A8882BBC02FA00D25668 /* TaskViewController.m */,
-				56C3A88A2BBC126600D25668 /* Task.h */,
-				56C3A88B2BBC126600D25668 /* Task.m */,
-				56C3A88E2BBC1C8A00D25668 /* InsertionDelegate.h */,
-				56D6416A2BBC35EE00EF7182 /* InProcessViewController.h */,
-				56D6416B2BBC35EE00EF7182 /* InProcessViewController.m */,
-				56269B6E2BBD675D00BBACAC /* DoneViewController.h */,
-				56269B6F2BBD675D00BBACAC /* DoneViewController.m */,
-				56269B722BBD712600BBACAC /* Helper.h */,
-				56269B732BBD712600BBACAC /* Helper.m */,
+				56C3A85B2BBBFF1500D25668 /* Assets.xcassets */,
+				56C3A8602BBBFF1500D25668 /* Info.plist */,
+				56C3A85D2BBBFF1500D25668 /* LaunchScreen.storyboard */,
+				56C3A8582BBBFF1200D25668 /* Main.storyboard */,
 			);
 			path = ToDo_App;
 			sourceTree = "<group>";
